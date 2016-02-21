@@ -69,3 +69,5 @@ target/
 .python-version
 
 
+conf.py
+ownpaste.db

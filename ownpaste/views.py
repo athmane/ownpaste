@@ -23,15 +23,15 @@ import ownpaste
 views = Blueprint('views', __name__)
 
 
-@views.route('/')
-def home():
-    if request_wants_json():
-        return jsonify(dict(version=ownpaste.__version__,
-                            api_version=ownpaste.api_version,
-                            languages=LANGUAGES))
-    return render_template('base.html', version=ownpaste.__version__,
-                           api_version=ownpaste.api_version,
-                           languages=LANGUAGES.iteritems())
+#@views.route('/')
+#def home():
+#    if request_wants_json():
+#        return jsonify(dict(version=ownpaste.__version__,
+#                            api_version=ownpaste.api_version,
+#                            languages=LANGUAGES))
+#    return render_template('base.html', version=ownpaste.__version__,
+#                           api_version=ownpaste.api_version,
+#                           languages=LANGUAGES.iteritems())
 
 
 @views.route('/pygments.css')
@@ -201,10 +201,10 @@ class PasteAPI(MethodView):
 
 
 paste_view = PasteAPI.as_view('paste_api')
-views.add_url_rule('/paste/', defaults={'paste_id': None, 'action': None},
+views.add_url_rule('/', defaults={'paste_id': None, 'action': None},
                    view_func=paste_view, methods=['GET'])
-views.add_url_rule('/paste/', view_func=paste_view, methods=['POST'])
-views.add_url_rule('/paste/<paste_id>/', view_func=paste_view,
+views.add_url_rule('/', view_func=paste_view, methods=['POST'])
+views.add_url_rule('/<paste_id>/', view_func=paste_view,
                    methods=['GET', 'DELETE', 'PATCH'])
-views.add_url_rule('/paste/<paste_id>/<action>/', view_func=paste_view,
+views.add_url_rule('/<paste_id>/<action>/', view_func=paste_view,
                    methods=['GET'])

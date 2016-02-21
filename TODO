@@ -1,0 +1,5 @@
+
+- Replace paste id with random id
+- Implement password protected pastes
+- Implement word blacklist
+- Remove 'View all pastes'

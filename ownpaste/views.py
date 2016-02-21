@@ -13,7 +13,7 @@ from flask import Blueprint, abort, current_app, make_response, \
      render_template, request
 from flask.views import MethodView
 from pygments.formatters import HtmlFormatter
-from ownpaste.auth import HTTPDigestAuth
+#from ownpaste.auth import HTTPDigestAuth
 from ownpaste.models import Paste, db
 from ownpaste.utils import LANGUAGES, jsonify, request_wants_json
 
@@ -45,7 +45,7 @@ def pygments_css():
 class PasteAPI(MethodView):
 
     def __init__(self, *args, **kwargs):
-        self.auth = HTTPDigestAuth()
+        #self.auth = HTTPDigestAuth()
         MethodView.__init__(self, *args, **kwargs)
 
     def get(self, paste_id=None, action=None):
@@ -84,8 +84,8 @@ class PasteAPI(MethodView):
             paste = Paste.get(paste_id)
 
             # if private ask for authentication
-            if paste.private and paste_id.isdigit():
-                self.auth.required()
+            #if paste.private and paste_id.isdigit():
+            #    self.auth.required()
 
             # guess output by browser's accept header
             if action is None:
@@ -123,7 +123,7 @@ class PasteAPI(MethodView):
             abort(404)
 
     def post(self):
-        self.auth.required()
+        #self.auth.required()
 
         try:
             data = request.json
@@ -154,7 +154,7 @@ class PasteAPI(MethodView):
         return jsonify(paste.to_json(True))
 
     def delete(self, paste_id):
-        self.auth.required()
+        #self.auth.required()
 
         paste = paste = Paste.get(paste_id)
         db.session.delete(paste)
@@ -165,7 +165,7 @@ class PasteAPI(MethodView):
         return jsonify()
 
     def patch(self, paste_id):
-        self.auth.required()
+        #self.auth.required()
 
         try:
             data = request.json
